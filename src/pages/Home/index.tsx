@@ -11,21 +11,17 @@ import {
 } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
-import PageLoader from '../../components/PageLoader';
 
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   return (
-    <>
-      {loading && <PageLoader duration={1800} onFinish={() => setLoading(false)} />}
     <div className="min-h-screen bg-slate-50 dark:bg-[#050505] text-gray-900 dark:text-gray-100 overflow-hidden font-sans selection:bg-secondary-500 selection:text-white transition-colors duration-500">
       <div className="relative z-10 w-full h-full">
         <header className="px-6 lg:px-12 py-4 flex items-center justify-between backdrop-blur-2xl bg-white/60 dark:bg-[#050505]/60 border-b border-gray-200/50 dark:border-white/5 sticky top-0 z-50 transition-all duration-300 shadow-xs">
@@ -306,6 +302,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-    </>
   );
 }
