@@ -1,8 +1,7 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiHome, FiAlertCircle } from 'react-icons/fi';
 
-const NotFound: React.FC = () => {
+export default function NotFound() {
   const navigate = useNavigate();
 
   return (
@@ -14,13 +13,14 @@ const NotFound: React.FC = () => {
             404
           </h1>
         </div>
-        
+
         <div className="space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold">
             Página não encontrada
           </h2>
           <p className="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-            A página que você está procurando não existe ou foi removida temporariamente.
+            A página que você está procurando não existe ou foi removida
+            temporariamente.
           </p>
         </div>
 
@@ -36,6 +36,4 @@ const NotFound: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default NotFound;
+}
