@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FiArrowRight,
   FiPlay,
@@ -9,13 +9,23 @@ import {
   FiMenu,
   FiX,
 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
+import PageLoader from '../../components/PageLoader';
 
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
 
   return (
+    <>
+      {loading && <PageLoader duration={1800} onFinish={() => setLoading(false)} />}
     <div className="min-h-screen bg-slate-50 dark:bg-[#050505] text-gray-900 dark:text-gray-100 overflow-hidden font-sans selection:bg-secondary-500 selection:text-white transition-colors duration-500">
       <div className="relative z-10 w-full h-full">
         <header className="px-6 lg:px-12 py-4 flex items-center justify-between backdrop-blur-2xl bg-white/60 dark:bg-[#050505]/60 border-b border-gray-200/50 dark:border-white/5 sticky top-0 z-50 transition-all duration-300 shadow-xs">
@@ -65,10 +75,16 @@ export default function Home() {
               )}
             </button>
             <div className="hidden lg:flex items-center gap-2">
-              <button className="px-5 py-2.5 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-gray-800 dark:text-white hover:bg-gray-50 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all font-semibold text-sm shadow-sm cursor-pointer">
+              <button
+                onClick={() => navigate('/login?role=professor')}
+                className="px-5 py-2.5 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-gray-800 dark:text-white hover:bg-gray-50 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all font-semibold text-sm shadow-sm cursor-pointer"
+              >
                 Sou Professor
               </button>
-              <button className="px-6 py-2.5 rounded-full bg-linear-to-r from-primary-600 to-primary-500 text-white hover:from-primary-700 hover:to-primary-600 transition-all font-semibold text-sm shadow-md shadow-primary-500/20 hover:shadow-primary-500/40 hover:-translate-y-0.5 cursor-pointer">
+              <button
+                onClick={() => navigate('/login?role=aluno')}
+                className="px-6 py-2.5 rounded-full bg-linear-to-r from-primary-600 to-primary-500 text-white hover:from-primary-700 hover:to-primary-600 transition-all font-semibold text-sm shadow-md shadow-primary-500/20 hover:shadow-primary-500/40 hover:-translate-y-0.5 cursor-pointer"
+              >
                 Portal Aluno
               </button>
             </div>
@@ -117,10 +133,16 @@ export default function Home() {
               <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">
                 Acessar Plataforma
               </p>
-              <button className="w-full px-6 py-3.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-gray-800 dark:text-white hover:bg-gray-50 dark:hover:bg-white/10 transition-colors font-bold text-base flex justify-center items-center gap-2">
+              <button
+                onClick={() => navigate('/login?role=professor')}
+                className="w-full px-6 py-3.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-gray-800 dark:text-white hover:bg-gray-50 dark:hover:bg-white/10 transition-colors font-bold text-base flex justify-center items-center gap-2"
+              >
                 Sou Professor
               </button>
-              <button className="w-full px-6 py-3.5 rounded-xl bg-linear-to-r from-primary-600 to-primary-500 text-white hover:from-primary-700 hover:to-primary-600 transition-colors font-bold text-base shadow-lg shadow-primary-500/25 flex justify-center items-center gap-2">
+              <button
+                onClick={() => navigate('/login?role=aluno')}
+                className="w-full px-6 py-3.5 rounded-xl bg-linear-to-r from-primary-600 to-primary-500 text-white hover:from-primary-700 hover:to-primary-600 transition-colors font-bold text-base shadow-lg shadow-primary-500/25 flex justify-center items-center gap-2"
+              >
                 Portal Aluno
                 <FiArrowRight className="w-4 h-4" />
               </button>
@@ -284,5 +306,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
