@@ -31,7 +31,8 @@ export async function postRequest<T = unknown>(
   const axios = getAxios();
   try {
     const { data } = await axios.post<ApiResponse<T>>(url, body);
-    return { ...data, success: true, message: data.message, type: "success" };
+    const success = data.success ?? true;
+    return { ...data, success, message: data.message, type: data.type ?? 'success' };
   } catch (err: unknown) {
     return handleError(err);
   }
@@ -41,7 +42,8 @@ export async function getRequest<T = unknown>( url: string ): Promise<ApiRespons
   const axios = getAxios();
   try {
     const { data } = await axios.get<ApiResponse<T>>(url);
-    return { ...data, success: true, message: data.message, type: "success" };
+    const success = data.success ?? true;
+    return { ...data, success, message: data.message, type: data.type ?? 'success' };
   } catch (err: unknown) {
     return handleError(err);
   }
@@ -51,7 +53,8 @@ export async function deleteRequest<T = unknown>( url: string, body?: unknown ):
   const axios = getAxios();
   try {
     const { data } = await axios.delete<ApiResponse<T>>(url, { data: body });
-    return { ...data, success: true, message: data.message, type: "success" };
+    const success = data.success ?? true;
+    return { ...data, success, message: data.message, type: data.type ?? 'success' };
   } catch (err: unknown) {
     return handleError(err);
   }
@@ -64,7 +67,8 @@ export async function putRequest<T = unknown>(
   const axios = getAxios();
   try {
     const { data } = await axios.put<ApiResponse<T>>(url, body);
-    return { ...data, success: true, message: data.message, type: "success" };
+    const success = data.success ?? true;
+    return { ...data, success, message: data.message, type: data.type ?? 'success' };
   } catch (err: unknown) {
     return handleError(err);
   }
@@ -77,7 +81,8 @@ export async function patchRequest<T = unknown>(
   const axios = getAxios();
   try {
     const { data } = await axios.patch<ApiResponse<T>>(url, body);
-    return { ...data, success: true, message: data.message, type: "success" };
+    const success = data.success ?? true;
+    return { ...data, success, message: data.message, type: data.type ?? 'success' };
   } catch (err: unknown) {
     return handleError(err);
   }

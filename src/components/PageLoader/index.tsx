@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 
 interface PageLoaderProps {
-  duration?: number; // ms to show the loader, default 1500
+  duration?: number;
   onFinish?: () => void;
 }
 
-export default function PageLoader({ duration = 1500, onFinish }: PageLoaderProps) {
+export default function PageLoader({
+  duration = 1500,
+  onFinish,
+}: PageLoaderProps) {
   const [progress, setProgress] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    // Animate progress bar
     const step = 100 / (duration / 16);
     const timer = setInterval(() => {
       setProgress((prev) => {
@@ -22,7 +24,6 @@ export default function PageLoader({ duration = 1500, onFinish }: PageLoaderProp
       });
     }, 16);
 
-    // Trigger fade-out near the end
     const fadeTimer = setTimeout(() => setFadeOut(true), duration - 300);
 
     const finishTimer = setTimeout(() => {
@@ -48,7 +49,9 @@ export default function PageLoader({ duration = 1500, onFinish }: PageLoaderProp
           {/* Pulsing ring */}
           <div className="absolute inset-0 rounded-2xl bg-primary-500/20 animate-ping" />
           <div className="relative w-16 h-16 bg-linear-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-xl shadow-primary-500/30">
-            <span className="text-white font-black text-xl tracking-tight select-none">CED</span>
+            <span className="text-white font-black text-xl tracking-tight select-none">
+              CED
+            </span>
           </div>
         </div>
         <div className="text-center">
